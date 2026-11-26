@@ -450,7 +450,7 @@ TEST_F(CLayerSurfacePartialDamageTest, NonLayoutCommitPreservesPartialDamageAndS
 
     // Keyboard interactivity alone (without buffer attach or surface damage) must not damage anything.
     created.resource->m_pending.committed |= CLayerShellResource::eCommittedState::STATE_KEYBOARD_INTERACTIVITY;
-    created.resource->m_pending.keyboardInteractivity = ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_ON_DEMAND;
+    created.resource->m_pending.keyboardInteractivity              = ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_ON_DEMAND;
     created.resource->m_surface->m_pending.updated.bits.layershell = true;
     commit(created.surfId);
     EXPECT_TRUE(takeDamage().empty());
@@ -496,7 +496,7 @@ TEST_F(CLayerSurfacePartialDamageTest, CommittedLayoutStateDamagesChangedGeometr
 }
 
 TEST_F(CLayerSurfacePartialDamageTest, LayerPlaneChangeDamagesLayerOrMonitorWhenDimAround) {
-    auto created = createLayerSurface("layer-plane-test", {50, 100, 400, 300}, ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT);
+    auto created                            = createLayerSurface("layer-plane-test", {50, 100, 400, 300}, ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT);
     created.resource->m_pending.margin.left = 50;
     created.resource->m_pending.margin.top  = 100;
     created.resource->m_current.margin.left = 50;
@@ -519,8 +519,8 @@ TEST_F(CLayerSurfacePartialDamageTest, LayerPlaneChangeDamagesLayerOrMonitorWhen
 }
 
 TEST_F(CLayerSurfacePartialDamageTest, OrderChangeDamagesReorderedLayersAndUnmappedConfigureDoesNotDamage) {
-    auto first = createLayerSurface("layer-order-first", {0, 0, 200, 100}, ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT);
-    auto second = createLayerSurface("layer-order-second", {100, 50, 200, 100}, ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT);
+    auto first                             = createLayerSurface("layer-order-first", {0, 0, 200, 100}, ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT);
+    auto second                            = createLayerSurface("layer-order-second", {100, 50, 200, 100}, ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT);
     second.resource->m_pending.margin.left = 100;
     second.resource->m_pending.margin.top  = 50;
     second.resource->m_current.margin.left = 100;
@@ -540,7 +540,7 @@ TEST_F(CLayerSurfacePartialDamageTest, OrderChangeDamagesReorderedLayersAndUnmap
     EXPECT_TRUE(takeDamage().empty());
 
     // Initial layout arrange for an unmapped layer must update its geometry without damaging.
-    auto unmapped                 = createLayerSurface("layer-unmapped-test", {0, 0, 300, 80}, ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT);
+    auto unmapped                          = createLayerSurface("layer-unmapped-test", {0, 0, 300, 80}, ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM | ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT);
     layerSurfaceTestMapped(unmapped.layer) = false;
     unmapped.resource->m_mapped            = false;
     unmapped.layer->m_geometry             = {};

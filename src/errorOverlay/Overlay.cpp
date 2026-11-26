@@ -158,9 +158,9 @@ void COverlay::createQueued() {
 }
 
 void COverlay::updateReservedArea(PHLMONITOR monitor) {
-    static auto BAR_POSITION = CConfigValue<Config::INTEGER>("debug:error_position");
+    static auto                              BAR_POSITION = CConfigValue<Config::INTEGER>("debug:error_position");
 
-    const bool  TOPBAR = *BAR_POSITION == 0;
+    const bool                               TOPBAR = *BAR_POSITION == 0;
 
     std::vector<std::pair<PHLMONITOR, CBox>> oldUsableAreas;
     for (const auto& m : State::monitorState()->monitors()) {
